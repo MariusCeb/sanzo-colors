@@ -37,7 +37,7 @@
             font-family: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
             color: var(--text-primary);
             background: var(--bg);
-            overscroll-behavior: none;
+            overflow: hidden;
         }
 
         body {
@@ -47,9 +47,8 @@
 
         header {
             padding: 1rem 2rem;
-            padding-top: calc(1.5rem + env(safe-area-inset-top));
+            padding-top: calc(1rem + env(safe-area-inset-top));
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 0 var(--border);
             background: var(--bg);
             flex-shrink: 0;
         }
@@ -57,7 +56,7 @@
         h1 {
             font-size: 1.4rem;
             font-weight: 300;
-            letter-spacing: 4px;
+            letter-spacing: -1px;
             margin-bottom: 0.75rem;
             font-family: 'Shippori Mincho', Georgia, serif;
             text-align: center;
@@ -208,29 +207,26 @@
         }
 
         button {
-            padding: 0.4rem 0.6rem;
-            border: none;
-            border-bottom: 1px solid transparent;
-            background: transparent;
-            color: var(--text-secondary);
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--divider);
+            background: white;
+            color: var(--text-primary);
             cursor: pointer;
-            font-size: 0.72rem;
-            transition: all 0.2s ease;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
             font-family: inherit;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--divider);
-            background: transparent;
+            border-color: var(--primary);
+            background: var(--bg);
         }
 
         button.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: transparent;
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         main {
@@ -271,6 +267,8 @@
 
         .color-card:hover {
             border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.1);
+            transform: translateY(-4px);
         }
 
         .color-swatch {
@@ -280,7 +278,7 @@
 
         .color-info {
             padding: 1.2rem;
-            background: var(--bg);
+            background: white;
         }
 
         .color-name {
