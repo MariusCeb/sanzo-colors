@@ -887,11 +887,13 @@
         document.addEventListener('DOMContentLoaded', init);
 
         // Splash screen - 2 secondi poi sparisce
+        document.body.style.backgroundColor = '#c04020'; // match splash bottom block
         setTimeout(() => {
             const splash = document.getElementById('splashScreen');
             splash.classList.add('hidden');
             setTimeout(() => {
                 splash.remove();
+                document.body.style.backgroundColor = '';
                 document.body.classList.add('ready');
             }, 600);
         }, 2000);
