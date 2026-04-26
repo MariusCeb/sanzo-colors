@@ -28,37 +28,21 @@
             --text-secondary: #6a6a6a;
             --border: #e8e3dc;
             --divider: #d4cdc4;
-            --sat: env(safe-area-inset-top, 0px);
-            --sab: env(safe-area-inset-bottom, 0px);
-            --sal: env(safe-area-inset-left, 0px);
-            --sar: env(safe-area-inset-right, 0px);
             font-size: 16px;
         }
 
-        html {
-            /* fill-available prevents the 100vh bounce gap on iOS */
-            height: -webkit-fill-available;
-            height: 100%;
-            background: var(--bg);
-        }
-
-        body {
+        html, body {
             width: 100%;
-            /* Stack: -webkit-fill-available for older iOS, dvh for modern */
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            min-height: 100dvh;
+            height: 100%;
             font-family: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
             color: var(--text-primary);
             background: var(--bg);
+            overflow: hidden;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            /* Body itself covers the safe area background */
-            padding-top: var(--sat);
-            padding-bottom: var(--sab);
-            padding-left: var(--sal);
-            padding-right: var(--sar);
         }
 
         header {
@@ -128,10 +112,10 @@
             gap: 0.3rem;
         }
 
+
         /* Splash Screen */
         .splash {
             position: fixed;
-            /* anchor outside safe areas so no gaps on iPhone */
             top: 0; left: 0; right: 0; bottom: 0;
             background: #d4a96a;
             z-index: 9999;
@@ -189,20 +173,19 @@
         }
         .splash-publisher {
             position: absolute;
-            bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
-            right: calc(1.5rem + env(safe-area-inset-right, 0px));
+            bottom: 1.5rem; right: 1.5rem;
             color: #d4a96a;
             font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* Color scale sidebar */
+        /* Mini scala cromatica custom */
         .color-scale {
             position: fixed;
-            left: var(--sal);
-            top: var(--sat);
-            bottom: var(--sab);
+            left: 0;
+            top: 0;
+            bottom: 0;
             width: 7px;
             background: linear-gradient(180deg, transparent 0%, transparent 100%);
             z-index: 100;
@@ -257,8 +240,6 @@
             padding-left: 2.3rem;
             position: relative;
             margin-left: 4px;
-            /* Ensure scroll area respects safe areas */
-            -webkit-overflow-scrolling: touch;
         }
 
         .grid-view {
@@ -376,8 +357,6 @@
             z-index: 1000;
             overflow-y: auto;
             padding: 1rem;
-            /* push modal content above home indicator */
-            padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
         }
 
         .modal.active {
@@ -748,8 +727,8 @@
             aside {
                 position: fixed;
                 right: 0;
-                top: var(--sat);
-                bottom: var(--sab);
+                top: 0;
+                bottom: 0;
                 z-index: 999;
                 width: 280px;
             }
@@ -782,7 +761,7 @@
 
         .toast {
             position: fixed;
-            bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
             background: var(--primary);
@@ -804,7 +783,7 @@
 </head>
 <body>
 
-    <div class="splash" id="splashScreen">
+        <div class="splash" id="splashScreen">
         <div class="splash-block-a"></div>
         <div class="splash-block-b">
             <div class="splash-kanji">配色<br>事典</div>
@@ -832,7 +811,7 @@
         </div>
     </header>
 
-    <div id="mainWrapper" style="display: flex; flex: 1; overflow: hidden; min-height: 0;">
+    <div id="mainWrapper" style="display: flex; flex: 1; overflow: hidden;">
         <main id="mainContent">
             <div class="loading">
                 <div class="spinner"></div>
@@ -907,13 +886,11 @@
         document.addEventListener('DOMContentLoaded', init);
 
         // Splash screen - 2 secondi poi sparisce
-        document.body.style.backgroundColor = '#c04020';
         setTimeout(() => {
             const splash = document.getElementById('splashScreen');
             splash.classList.add('hidden');
             setTimeout(() => {
                 splash.remove();
-                document.body.style.backgroundColor = '';
                 document.body.classList.add('ready');
             }, 600);
         }, 2000);
@@ -934,7 +911,7 @@
                 updateColorCount();
             } catch (error) {
                 console.error('Errore:', error);
-                document.getElementById('mainContent').innerHTML =
+                document.getElementById('mainContent').innerHTML = 
                     '<div style="padding: 2rem; text-align: center; color: #6a6a6a;">Errore nel caricamento. Controlla la connessione.</div>';
             }
         }
@@ -997,11 +974,11 @@
 
         function filterColors() {
             return state.colors.filter(color => {
-                const matchesSearch = !state.searchTerm ||
+                const matchesSearch = !state.searchTerm || 
                     color.name.toLowerCase().includes(state.searchTerm) ||
                     color.hex.toLowerCase().includes(state.searchTerm);
 
-                const matchesColor = !state.colorFilter ||
+                const matchesColor = !state.colorFilter || 
                     colorSimilarity(state.colorFilter, color.hex) < 50;
 
                 return matchesSearch && matchesColor;
@@ -1096,7 +1073,7 @@
                 const list = document.getElementById('combinationsList');
                 list.innerHTML = color.combinations.map(comboNum => {
                     const colorsInCombo = state.colors.filter(c => c.combinations.includes(comboNum));
-                    const preview = colorsInCombo.slice(0, 5).map(c =>
+                    const preview = colorsInCombo.slice(0, 5).map(c => 
                         `<div class="combo-preview-swatch" style="background: ${c.hex}"></div>`
                     ).join('');
                     return `<div class="combo-tag" onclick="toggleComboDetails(${comboNum})"><div class="combo-preview">${preview}</div><span>#${comboNum}</span></div><div id="combo-${comboNum}" class="combo-details"></div>`;
@@ -1113,7 +1090,7 @@
 
         function toggleComboDetails(comboNum) {
             const detailsDiv = document.getElementById(`combo-${comboNum}`);
-
+            
             if (state.expandedCombo === comboNum) {
                 detailsDiv.classList.remove('expanded');
                 state.expandedCombo = null;
@@ -1121,7 +1098,7 @@
                 if (state.expandedCombo !== null) {
                     document.getElementById(`combo-${state.expandedCombo}`).classList.remove('expanded');
                 }
-
+                
                 const colorsInCombo = state.colors.filter(c => c.combinations.includes(comboNum));
                 detailsDiv.innerHTML = colorsInCombo.map(c => `
                     <div class="combo-color-item" onclick="showModal(state.colors[${c.index - 1}]); event.stopPropagation();">
@@ -1136,7 +1113,7 @@
                         </div>
                     </div>
                 `).join('');
-
+                
                 detailsDiv.classList.add('expanded');
                 state.expandedCombo = comboNum;
             }
@@ -1203,10 +1180,10 @@
 
         function shareColor() {
             if (!state.selectedColor) return;
-            const text = state.selectedColor.name + ' - ' + state.selectedColor.hex +
-                         '\nRGB: ' + state.selectedColor.rgb +
+            const text = state.selectedColor.name + ' - ' + state.selectedColor.hex + 
+                         '\nRGB: ' + state.selectedColor.rgb + 
                          '\nCMYK: ' + state.selectedColor.cmyk;
-
+            
             if (navigator.share) {
                 navigator.share({ title: 'Sanzo Colors', text });
             } else {
@@ -1231,7 +1208,7 @@
             const main = document.getElementById('mainContent');
             const indicator = document.querySelector('.color-scale-indicator');
             const colorScale = document.querySelector('.color-scale');
-
+            
             if (!colorScale || !indicator) return;
 
             let ticking = false;
