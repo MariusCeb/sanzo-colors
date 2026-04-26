@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#faf6f1">
     <meta name="description" content="色彩辞典 - Sanzo Wada Color Combinations">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,14 +43,11 @@
         body {
             display: flex;
             flex-direction: column;
-            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         header {
             padding: 1rem 2rem;
-            padding-top: calc(1rem + env(safe-area-inset-top, 0px));
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 0 var(--border);
             background: var(--bg);
             flex-shrink: 0;
         }
@@ -58,7 +55,7 @@
         h1 {
             font-size: 1.4rem;
             font-weight: 300;
-            letter-spacing: 4px;
+            letter-spacing: -1px;
             margin-bottom: 0.75rem;
             font-family: 'Shippori Mincho', Georgia, serif;
             text-align: center;
@@ -81,16 +78,13 @@
         }
 
         input[type="text"], input[type="color"] {
-            padding: 0.5rem 0.2rem;
-            border: none;
-            border-bottom: 1px solid var(--divider);
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--divider);
             font-size: 0.85rem;
             font-family: inherit;
             transition: all 0.3s ease;
-            background: transparent;
+            background: white;
             color: var(--text-primary);
-            letter-spacing: 0.5px;
-            border-radius: 0;
         }
 
         input[type="text"] {
@@ -106,7 +100,8 @@
 
         input[type="text"]:focus, input[type="color"]:focus {
             outline: none;
-            border-bottom-color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.05);
         }
 
         .view-toggle {
@@ -188,12 +183,11 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 7px;
+            width: 4px;
             background: linear-gradient(180deg, transparent 0%, transparent 100%);
             z-index: 100;
-            cursor: ns-resize;
+            cursor: pointer;
             border-right: 1px solid var(--border);
-            touch-action: none;
         }
 
         .color-scale-indicator {
@@ -209,29 +203,26 @@
         }
 
         button {
-            padding: 0.4rem 0.6rem;
-            border: none;
-            border-bottom: 1px solid transparent;
-            background: transparent;
-            color: var(--text-secondary);
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--divider);
+            background: white;
+            color: var(--text-primary);
             cursor: pointer;
-            font-size: 0.72rem;
-            transition: all 0.2s ease;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
             font-family: inherit;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--divider);
-            background: transparent;
+            border-color: var(--primary);
+            background: var(--bg);
         }
 
         button.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: transparent;
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         main {
@@ -256,22 +247,12 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .card-number {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.6rem;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.65);
-            font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
-            pointer-events: none;
         }
 
         .color-card:hover {
             border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.1);
+            transform: translateY(-4px);
         }
 
         .color-swatch {
@@ -281,7 +262,7 @@
 
         .color-info {
             padding: 1.2rem;
-            background: var(--bg);
+            background: white;
         }
 
         .color-name {
@@ -376,18 +357,9 @@
             border: 1px solid var(--border);
         }
 
-        .modal-drag-handle {
-            width: 36px;
-            height: 3px;
-            background: var(--divider);
-            border-radius: 2px;
-            margin: 0.75rem auto 0;
-        }
-
         .modal-header {
-            padding: 1.5rem 2rem 1.5rem;
+            padding: 2rem 2rem 1.5rem;
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 0 var(--border);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -396,17 +368,8 @@
         .modal-header h2 {
             font-size: 1.5rem;
             font-weight: 300;
-            letter-spacing: 1px;
+            letter-spacing: -0.5px;
             flex: 1;
-        }
-
-        .modal-header h2::after {
-            content: '';
-            display: block;
-            width: 1.8rem;
-            height: 1px;
-            background: var(--primary);
-            margin-top: 0.6rem;
         }
 
         .modal-close {
@@ -557,8 +520,8 @@
         }
 
         .combo-color-swatch {
-            width: 90px;
-            align-self: stretch;
+            width: 60px;
+            height: 60px;
             flex-shrink: 0;
             border: 1px solid var(--border);
         }
@@ -695,19 +658,6 @@
         }
 
         @media (max-width: 768px) {
-            .color-scale {
-                width: 9px;
-            }
-
-            input[type="color"] {
-                display: none;
-            }
-
-            .view-toggle button {
-                padding: 0.35rem 0.6rem;
-                font-size: 0.7rem;
-            }
-
             h1 {
                 font-size: 1.5rem;
                 margin-bottom: 1rem;
@@ -772,15 +722,6 @@
             font-size: 0.9rem;
             z-index: 2000;
         }
-
-        header, #mainWrapper, footer, .color-scale {
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        body.ready header, body.ready #mainWrapper, body.ready footer, body.ready .color-scale {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
@@ -803,17 +744,17 @@
         <h1>色彩辞典</h1>
         <div class="subtitle">Sanzo Wada Dictionary</div>
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="名前またはHEX">
+            <input type="text" id="searchInput" placeholder="Colore per nome o hex">
             <input type="color" id="colorPicker" title="Filtra per tonalita">
         </div>
         <div class="view-toggle">
-            <button id="gridBtn" class="active">格子</button>
-            <button id="listBtn">一覧</button>
-            <button id="favBtn">お気に入り</button>
+            <button id="gridBtn" class="active">Griglia</button>
+            <button id="listBtn">Lista</button>
+            <button id="favBtn">Preferiti</button>
         </div>
     </header>
 
-    <div id="mainWrapper" style="display: flex; flex: 1; overflow: hidden;">
+    <div style="display: flex; flex: 1; overflow: hidden;">
         <main id="mainContent">
             <div class="loading">
                 <div class="spinner"></div>
@@ -824,7 +765,7 @@
 
     <footer>
         <div class="footer-content">
-            <span id="colorCount">読み込み中...</span>
+            <span id="colorCount">Caricamento...</span>
             <span>Wada Sanzo - Color Combinations</span>
         </div>
     </footer>
@@ -835,7 +776,6 @@
 
     <div id="detailModal" class="modal">
         <div class="modal-content">
-            <div class="modal-drag-handle"></div>
             <div class="modal-header">
                 <h2 id="modalTitle">Colore</h2>
                 <button class="modal-close" onclick="closeModal()">x</button>
@@ -891,10 +831,7 @@
         setTimeout(() => {
             const splash = document.getElementById('splashScreen');
             splash.classList.add('hidden');
-            setTimeout(() => {
-                splash.remove();
-                document.body.classList.add('ready');
-            }, 600);
+            setTimeout(() => splash.remove(), 600);
         }, 2000);
 
 
@@ -961,17 +898,6 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeModal();
             });
-
-            // Swipe down per chiudere il modale
-            let touchStartY = 0;
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
-            }, { passive: true });
-            modalContent.addEventListener('touchend', (e) => {
-                const delta = e.changedTouches[0].clientY - touchStartY;
-                if (delta > 90 && modalContent.scrollTop === 0) closeModal();
-            }, { passive: true });
         }
 
         function filterColors() {
@@ -1034,7 +960,6 @@
             card.className = 'color-card';
             card.innerHTML = `
                 <div class="color-swatch" style="background: ${color.hex}"></div>
-                <span class="card-number">${String(color.index).padStart(3, '0')}</span>
                 <div class="color-info">
                     <div class="color-name">${color.name}</div>
                     <div class="color-hex">${color.hex}</div>
@@ -1227,34 +1152,11 @@
                 }
             }, { passive: true });
 
-            const scrollToPercent = (clientY) => {
-                const percent = Math.max(0, Math.min(1, clientY / window.innerHeight));
-                main.scrollTop = percent * (main.scrollHeight - main.clientHeight);
-            };
-
-            colorScale.addEventListener('click', (e) => scrollToPercent(e.clientY));
-
-            // Touch drag
-            colorScale.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                scrollToPercent(e.touches[0].clientY);
-            }, { passive: false });
-
-            colorScale.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                scrollToPercent(e.touches[0].clientY);
-            }, { passive: false });
-
-            // Mouse drag
-            let dragging = false;
-            colorScale.addEventListener('mousedown', (e) => {
-                dragging = true;
-                scrollToPercent(e.clientY);
+            colorScale.addEventListener('click', (e) => {
+                const percent = e.clientY / window.innerHeight;
+                const scrollHeight = main.scrollHeight - main.clientHeight;
+                main.scrollTop = percent * scrollHeight;
             });
-            document.addEventListener('mousemove', (e) => {
-                if (dragging) scrollToPercent(e.clientY);
-            });
-            document.addEventListener('mouseup', () => { dragging = false; });
         }
 
         // Inizializza la scala al caricamento
